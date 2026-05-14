@@ -2,12 +2,10 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IAT 04 Angkatan 2024 - UIN KHAS Jember</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Konfigurasi Tema Warna Basic: Biru Muda, Hijau Muda, Putih -->
+    <!-- PERBAIKAN: Konfigurasi warna HARUS di atas script CDN Tailwind agar terbaca di HP -->
     <script>
         tailwind.config = {
             theme: {
@@ -22,6 +20,9 @@
             }
         }
     </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -30,95 +31,115 @@
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Custom scrollbar untuk list tugas */
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        /* Custom scrollbar untuk list tugas agar rapi di HP */
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="text-gray-700 antialiased">
+<body class="text-gray-700 antialiased overflow-x-hidden">
 
-    <!-- Navigation -->
     <nav class="glass-nav fixed w-full z-50 border-b border-gray-200 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
+                
+                <!-- Logo -->
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-light-green rounded-xl flex items-center justify-center text-main-green font-bold text-xl">
+                    <div class="w-9 h-9 md:w-10 md:h-10 bg-light-green rounded-xl flex items-center justify-center text-main-green font-bold text-lg md:text-xl">
                         <i class="fa-solid fa-book-quran"></i>
                     </div>
-                    <span class="font-bold text-xl text-gray-800 hidden sm:block">IAT 04 '24</span>
+                    <span class="font-bold text-lg md:text-xl text-gray-800">IAT 04 '24</span>
                 </div>
+
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8">
                     <a href="#beranda" class="text-gray-600 hover:text-main-blue font-medium transition">Beranda</a>
                     <a href="#jadwal" class="text-gray-600 hover:text-main-blue font-medium transition">Jadwal</a>
                     <a href="#anggota" class="text-gray-600 hover:text-main-blue font-medium transition">Anggota</a>
                     <a href="#akademik" class="text-gray-600 hover:text-main-blue font-medium transition">Akademik</a>
                 </div>
-                <div>
+
+                <!-- Buttons Area -->
+                <div class="flex items-center gap-2">
                     <!-- Login/User Button -->
-                    <button id="authBtn" onclick="toggleLoginModal()" class="bg-main-blue hover:bg-blue-600 text-white px-5 py-2 rounded-full font-medium transition shadow-sm flex items-center gap-2">
-                        <i class="fa-solid fa-user"></i> <span id="authBtnText">Login Mahasiswa</span>
+                    <button id="authBtn" onclick="toggleLoginModal()" class="bg-main-blue hover:bg-blue-600 text-white px-4 md:px-5 py-2 rounded-full text-sm md:text-base font-medium transition shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-user"></i> <span id="authBtnText" class="hidden sm:inline">Login Kelas</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Toggle Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200 transition">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu (Hidden by default) -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-b border-gray-200 absolute w-full shadow-lg transition-all duration-300">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#beranda" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-light-blue hover:text-main-blue">Beranda</a>
+                <a href="#jadwal" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-light-blue hover:text-main-blue">Jadwal Mata Kuliah</a>
+                <a href="#anggota" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-light-blue hover:text-main-blue">Anggota Kelas</a>
+                <a href="#akademik" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-light-blue hover:text-main-blue">Pusat Akademik</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="beranda" class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="bg-white p-10 md:p-16 rounded-3xl shadow-sm border border-gray-100 text-center fade-in relative overflow-hidden">
+    <section id="beranda" class="pt-28 md:pt-32 pb-10 md:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="bg-white p-8 md:p-16 rounded-3xl shadow-sm border border-gray-100 text-center fade-in relative overflow-hidden">
             <!-- Dekorasi Warna Latar -->
-            <div class="absolute top-0 left-0 w-32 h-32 bg-light-blue rounded-br-full opacity-50"></div>
-            <div class="absolute bottom-0 right-0 w-32 h-32 bg-light-green rounded-tl-full opacity-50"></div>
+            <div class="absolute top-0 left-0 w-24 h-24 md:w-32 md:h-32 bg-light-blue rounded-br-full opacity-50"></div>
+            <div class="absolute bottom-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-light-green rounded-tl-full opacity-50"></div>
             
             <div class="relative z-10">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4 md:mb-6 leading-tight">
                     Ilmu Al-Qur'an dan Tafsir <br>
                     <span class="text-main-blue">Kelas 04</span>
                 </h1>
-                <p class="text-lg md:text-xl text-gray-600 mb-2 max-w-2xl mx-auto">
+                <p class="text-base md:text-xl text-gray-600 mb-2 max-w-2xl mx-auto">
                     Fakultas Ushuluddin Adab dan Humaniora
                 </p>
-                <p class="text-md text-gray-500 font-medium">
-                    Universitas Islam Negeri Kiai Haji Achmad Siddiq Jember • Angkatan 2024
+                <p class="text-sm md:text-md text-gray-500 font-medium">
+                    UIN Kiai Haji Achmad Siddiq Jember • Angkatan 2024
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Akademik Section (Publikasi & Referensi) -->
-    <section id="akademik" class="py-16 px-4 sm:px-6 lg:px-8">
+    <section id="akademik" class="py-10 md:py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <div class="text-center sm:text-left">
-                    <h2 class="text-3xl font-bold text-gray-900">Pusat Akademik</h2>
-                    <p class="text-gray-600 mt-1">Referensi materi dan publikasi tugas mahasiswa.</p>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Pusat Akademik</h2>
+                    <p class="text-sm md:text-base text-gray-600 mt-1">Referensi materi dan publikasi tugas mahasiswa.</p>
                 </div>
-                <button id="addPostBtn" onclick="openUploadModal()" class="hidden bg-main-green hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-medium shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up"></i> Bagikan Tugas/Materi
+                <button id="addPostBtn" onclick="openUploadModal()" class="hidden w-full sm:w-auto bg-main-green hover:bg-green-600 text-white px-5 py-3 rounded-xl font-medium shadow-sm transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Bagikan Data
                 </button>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Referensi List -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 border-t-4 border-t-main-blue">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 border-t-4 border-t-main-blue">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                         <div class="w-8 h-8 bg-light-blue rounded-lg flex items-center justify-center text-main-blue"><i class="fa-solid fa-book"></i></div>
                         Referensi Mata Kuliah
                     </h3>
-                    <div id="referensiList" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scroll">
+                    <div id="referensiList" class="space-y-3 max-h-[300px] md:max-h-[400px] overflow-y-auto pr-2 custom-scroll">
                         <!-- Data Masuk Sini -->
                     </div>
                 </div>
 
                 <!-- Publikasi Tugas List -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 border-t-4 border-t-main-green">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 border-t-4 border-t-main-green">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                         <div class="w-8 h-8 bg-light-green rounded-lg flex items-center justify-center text-main-green"><i class="fa-solid fa-file-export"></i></div>
                         Publikasi Tugas
                     </h3>
-                    <div id="tugasList" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scroll">
+                    <div id="tugasList" class="space-y-3 max-h-[300px] md:max-h-[400px] overflow-y-auto pr-2 custom-scroll">
                         <!-- Data Masuk Sini -->
                     </div>
                 </div>
@@ -127,29 +148,29 @@
     </section>
 
     <!-- Jadwal Kuliah Section -->
-    <section id="jadwal" class="py-16 bg-white border-y border-gray-100 px-4 sm:px-6 lg:px-8">
+    <section id="jadwal" class="py-10 md:py-16 bg-white border-y border-gray-100 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-900">Jadwal Semester 04</h2>
+            <div class="text-center mb-8 md:mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Jadwal Semester 04</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <!-- Senin -->
                 <div class="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden">
-                    <div class="bg-light-blue py-3 text-center text-main-blue font-bold text-lg border-b border-gray-200">Senin</div>
-                    <div class="p-5 space-y-4">
+                    <div class="bg-light-blue py-3 text-center text-main-blue font-bold text-base md:text-lg border-b border-gray-200">Senin</div>
+                    <div class="p-4 md:p-5 space-y-4">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">09.30 - 11.10</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">09.30 - 11.10</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Teori & Pendekatan dlm Kajian Tafsir Lisan</p>
                         </div>
                         <hr class="border-gray-200">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">12.00 - 13.40</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">12.00 - 13.40</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Tafsir Ayat Ahkam Siyasah</p>
                         </div>
                         <hr class="border-gray-200">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">15.30 - 17.10</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">15.30 - 17.10</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Metodologi Penelitian</p>
                         </div>
                     </div>
@@ -157,20 +178,20 @@
 
                 <!-- Selasa -->
                 <div class="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden">
-                    <div class="bg-light-green py-3 text-center text-main-green font-bold text-lg border-b border-gray-200">Selasa</div>
-                    <div class="p-5 space-y-4">
+                    <div class="bg-light-green py-3 text-center text-main-green font-bold text-base md:text-lg border-b border-gray-200">Selasa</div>
+                    <div class="p-4 md:p-5 space-y-4">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">07.30 - 09.10</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">07.30 - 09.10</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Studi Tafsir Klasik - Pertengahan</p>
                         </div>
                         <hr class="border-gray-200">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">13.40 - 15.20</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">13.40 - 15.20</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Filsafat Islam</p>
                         </div>
                         <hr class="border-gray-200">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">15.30 - 17.10</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">15.30 - 17.10</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Antropologi Agama</p>
                         </div>
                     </div>
@@ -178,15 +199,15 @@
 
                 <!-- Rabu -->
                 <div class="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden">
-                    <div class="bg-light-blue py-3 text-center text-main-blue font-bold text-lg border-b border-gray-200">Rabu</div>
-                    <div class="p-5 space-y-4">
+                    <div class="bg-light-blue py-3 text-center text-main-blue font-bold text-base md:text-lg border-b border-gray-200">Rabu</div>
+                    <div class="p-4 md:p-5 space-y-4">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">12.00 - 13.40</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">12.00 - 13.40</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Tafsir Ayat Munakahat</p>
                         </div>
                         <hr class="border-gray-200">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">13.40 - 15.20</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">13.40 - 15.20</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Media Pembelajaran Al Qur'an dan Tafsir</p>
                         </div>
                     </div>
@@ -194,15 +215,15 @@
 
                 <!-- Kamis -->
                 <div class="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden">
-                    <div class="bg-light-green py-3 text-center text-main-green font-bold text-lg border-b border-gray-200">Kamis</div>
-                    <div class="p-5 space-y-4">
+                    <div class="bg-light-green py-3 text-center text-main-green font-bold text-base md:text-lg border-b border-gray-200">Kamis</div>
+                    <div class="p-4 md:p-5 space-y-4">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">07.30 - 09.10</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">07.30 - 09.10</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Strategi Pembelajaran Al Qur'an dan Tafsir</p>
                         </div>
                         <hr class="border-gray-200">
                         <div>
-                            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">13.40 - 15.20</span>
+                            <span class="text-[11px] md:text-xs font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">13.40 - 15.20</span>
                             <p class="font-semibold text-gray-800 mt-2 text-sm">Terjemah Al Qur'an</p>
                         </div>
                     </div>
@@ -212,58 +233,57 @@
     </section>
 
     <!-- Anggota Kelas Section -->
-    <section id="anggota" class="py-16 px-4 sm:px-6 lg:px-8">
+    <section id="anggota" class="py-10 md:py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-900">Anggota Kelas</h2>
-                <p class="text-gray-500 mt-1">26 Mahasiswa IAT 04</p>
+            <div class="text-center mb-8 md:mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Anggota Kelas</h2>
+                <p class="text-gray-500 mt-1 text-sm md:text-base">26 Mahasiswa IAT 04</p>
             </div>
 
             <!-- Grid Anggota -->
-            <div id="studentGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div id="studentGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
                 <!-- Data dari JS akan masuk kesini -->
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-8 text-center text-gray-500">
-        <p class="font-medium text-gray-700">© 2024 Kelas IAT 04 - UIN KHAS Jember.</p>
-        <p class="text-sm mt-1">Fakultas Ushuluddin Adab dan Humaniora</p>
+    <footer class="bg-white border-t border-gray-200 py-6 md:py-8 text-center text-gray-500">
+        <p class="font-medium text-gray-700 text-sm md:text-base">© 2024 Kelas IAT 04 - UIN KHAS Jember.</p>
+        <p class="text-xs md:text-sm mt-1">Fakultas Ushuluddin Adab dan Humaniora</p>
     </footer>
 
-    <!-- MODAL LOGIN (Anti Reload Form) -->
-    <div id="loginModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm px-4">
-        <div class="bg-white rounded-3xl w-full max-w-sm p-8 shadow-2xl relative fade-in">
-            <button onclick="toggleLoginModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 transition">
-                <i class="fa-solid fa-xmark text-xl"></i>
+    <!-- MODAL LOGIN -->
+    <div id="loginModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm px-4 py-8 overflow-y-auto">
+        <!-- max-h-[90vh] dan overflow-y-auto memastikan di layar HP kecil formnya bisa di-scroll dan tidak terpotong -->
+        <div class="bg-white rounded-3xl w-full max-w-sm p-6 md:p-8 shadow-2xl relative fade-in max-h-[90vh] overflow-y-auto custom-scroll my-auto">
+            <button onclick="toggleLoginModal()" class="absolute top-4 md:top-5 right-4 md:right-5 text-gray-400 hover:text-gray-700 transition w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 bg-light-blue rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-lock text-main-blue text-xl"></i>
+            <div class="text-center mb-6 mt-2">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-light-blue rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-lock text-main-blue text-lg md:text-xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900">Login Kelas</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900">Login Kelas</h3>
             </div>
             
-            <!-- Menggunakan DIV bukan FORM agar tidak nge-refresh halaman saat dipencet -->
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Pilih Nama Anda</label>
+                    <label class="block text-xs md:text-sm font-semibold text-gray-700 mb-1">Pilih Nama Anda</label>
                     <select id="loginSelectName" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-blue outline-none text-sm font-medium">
                         <option value="">-- Pilih Nama --</option>
                         <!-- Options diisi lewat JS -->
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Sandi Kelas</label>
+                    <label class="block text-xs md:text-sm font-semibold text-gray-700 mb-1">Sandi Kelas</label>
                     <input type="password" id="loginPassword" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-blue outline-none text-sm" placeholder="Masukkan sandi rahasia">
                 </div>
                 
-                <!-- Pesan Notifikasi -->
-                <div id="loginAlert" class="hidden text-center text-sm font-bold p-2 rounded-lg"></div>
+                <div id="loginAlert" class="hidden text-center text-xs md:text-sm font-bold p-3 rounded-xl border"></div>
 
-                <button type="button" onclick="prosesLogin()" class="w-full bg-main-blue hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition shadow-sm mt-2">
+                <button type="button" onclick="prosesLogin()" class="w-full bg-main-blue hover:bg-blue-600 text-white font-bold py-3 md:py-3.5 rounded-xl transition shadow-sm mt-2 text-sm md:text-base">
                     Masuk Sekarang
                 </button>
             </div>
@@ -271,37 +291,36 @@
     </div>
 
     <!-- MODAL UPLOAD -->
-    <div id="uploadModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm px-4">
-        <div class="bg-white rounded-3xl w-full max-w-md p-8 shadow-2xl relative fade-in">
-            <button onclick="closeUploadModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 transition">
-                <i class="fa-solid fa-xmark text-xl"></i>
+    <div id="uploadModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm px-4 py-8 overflow-y-auto">
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 md:p-8 shadow-2xl relative fade-in max-h-[90vh] overflow-y-auto custom-scroll my-auto">
+            <button onclick="closeUploadModal()" class="absolute top-4 md:top-5 right-4 md:right-5 text-gray-400 hover:text-gray-700 transition w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 mt-2">
                 <i class="fa-solid fa-cloud-arrow-up text-main-green"></i> Bagikan Data
             </h3>
             
-            <!-- Menggunakan DIV bukan FORM -->
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Pilih Kategori</label>
-                    <select id="uploadKategori" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-green outline-none">
+                    <label class="block text-xs md:text-sm font-semibold text-gray-700 mb-1">Pilih Kategori</label>
+                    <select id="uploadKategori" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-green outline-none text-sm">
                         <option value="referensi">Referensi Mata Kuliah</option>
                         <option value="tugas">Publikasi Tugas</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Judul / Mata Kuliah</label>
-                    <input type="text" id="uploadJudul" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-green outline-none" placeholder="Cth: Makalah Filsafat Islam">
+                    <label class="block text-xs md:text-sm font-semibold text-gray-700 mb-1">Judul / Mata Kuliah</label>
+                    <input type="text" id="uploadJudul" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-green outline-none text-sm" placeholder="Cth: Makalah Filsafat Islam">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Tautan / Link File</label>
-                    <input type="url" id="uploadLink" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-green outline-none" placeholder="https://drive.google.com/...">
+                    <label class="block text-xs md:text-sm font-semibold text-gray-700 mb-1">Tautan / Link File</label>
+                    <input type="url" id="uploadLink" class="w-full px-4 py-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-main-green outline-none text-sm" placeholder="https://drive.google.com/...">
                 </div>
                 
-                <div id="uploadAlert" class="hidden text-center text-sm font-bold p-2 rounded-lg bg-red-100 text-red-600">Mohon isi semua kolom!</div>
+                <div id="uploadAlert" class="hidden text-center text-xs md:text-sm font-bold p-3 rounded-xl bg-red-50 border border-red-200 text-red-600">Mohon isi semua kolom!</div>
 
-                <button type="button" onclick="prosesUpload()" class="w-full bg-main-green hover:bg-green-600 text-white font-bold py-3 rounded-xl transition shadow-sm mt-4">
+                <button type="button" onclick="prosesUpload()" class="w-full bg-main-green hover:bg-green-600 text-white font-bold py-3 md:py-3.5 rounded-xl transition shadow-sm mt-4 text-sm md:text-base">
                     Kirim & Publikasikan
                 </button>
             </div>
@@ -309,72 +328,64 @@
     </div>
 
     <script>
-        // Data Mahasiswa (Tanpa penanda gender, diseragamkan)
+        // Data Mahasiswa
         const students = [
-            { name: "Nurviela Afriani Sitorus" },
-            { name: "Layyina Lisa Norrachmadi" },
-            { name: "Muhammad Syamaydzar" },
-            { name: "Karin Aura Husna" },
-            { name: "Zahrotul Aini" },
-            { name: "Adelia Mutiara Zamzam Ahmad" },
-            { name: "Moh. Mirza Tsaqif Azmi" },
-            { name: "Moch. Agus Rizal Fahmi" },
-            { name: "Kamiluddin" },
-            { name: "Siti Rahmatika" },
-            { name: "Indra Nur Wahyudi" },
-            { name: "Aufa Nabila" },
-            { name: "Siti Alifia Nuraini" },
-            { name: "Moh. Kayyis Salimi" },
-            { name: "Fatur Rosia Rohman" },
-            { name: "Vonny Nurlathifah" },
-            { name: "Rizky Akbar Masyayikh" },
-            { name: "Surotul Aini" },
-            { name: "Muhammad Ilham Taufiqullah" },
-            { name: "Tantriyatus Salami" },
-            { name: "Zaini Ali" },
-            { name: "Roro Hemas Mur Pratiwi" },
-            { name: "Watsiqotul Kamila" },
-            { name: "Ade Yahya Wiradinata" },
-            { name: "Deyizna Unay Zahroya" },
-            { name: "Ahmad Raffi Firmansyah" }
+            { name: "Nurviela Afriani Sitorus" }, { name: "Layyina Lisa Norrachmadi" }, { name: "Muhammad Syamaydzar" },
+            { name: "Karin Aura Husna" }, { name: "Zahrotul Aini" }, { name: "Adelia Mutiara Zamzam Ahmad" },
+            { name: "Moh. Mirza Tsaqif Azmi" }, { name: "Moch. Agus Rizal Fahmi" }, { name: "Kamiluddin" },
+            { name: "Siti Rahmatika" }, { name: "Indra Nur Wahyudi" }, { name: "Aufa Nabila" },
+            { name: "Siti Alifia Nuraini" }, { name: "Moh. Kayyis Salimi" }, { name: "Fatur Rosia Rohman" },
+            { name: "Vonny Nurlathifah" }, { name: "Rizky Akbar Masyayikh" }, { name: "Surotul Aini" },
+            { name: "Muhammad Ilham Taufiqullah" }, { name: "Tantriyatus Salami" }, { name: "Zaini Ali" },
+            { name: "Roro Hemas Mur Pratiwi" }, { name: "Watsiqotul Kamila" }, { name: "Ade Yahya Wiradinata" },
+            { name: "Deyizna Unay Zahroya" }, { name: "Ahmad Raffi Firmansyah" }
         ];
 
-        // Urutkan nama sesuai abjad agar mudah dicari di dropdown
+        // Sort Data
         const sortedStudents = [...students].sort((a, b) => a.name.localeCompare(b.name));
 
-        // State Aplikasi
         let currentUser = null;
         let referensiData = [];
         let tugasData = [];
 
-        // Inisialisasi Aplikasi Saat Web Dibuka
         window.onload = () => {
             renderStudents();
             isiDropdownLogin();
             loadLocalData();
         };
 
-        // Render Kartu Mahasiswa dengan Siluet Default (mirip WA)
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+
         function renderStudents() {
             const grid = document.getElementById('studentGrid');
             grid.innerHTML = '';
             
             students.forEach(student => {
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition hover:-translate-y-1";
+                card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 p-3 md:p-4 text-center hover:shadow-md transition";
                 
-                // Avatar default gaya siluet, persis WA tapi biru muda
+                // Avatar default gaya siluet, persis WA
                 card.innerHTML = `
-                    <div class="w-16 h-16 mx-auto rounded-full mb-3 bg-light-blue text-main-blue flex items-end justify-center overflow-hidden border border-blue-100">
-                        <i class="fa-solid fa-user text-[45px] translate-y-2"></i>
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto rounded-full mb-2 md:mb-3 bg-light-blue text-main-blue flex items-end justify-center overflow-hidden border border-blue-100">
+                        <i class="fa-solid fa-user text-[35px] md:text-[45px] translate-y-1 md:translate-y-2"></i>
                     </div>
-                    <h3 class="font-bold text-gray-800 text-xs leading-tight capitalize">${student.name.toLowerCase()}</h3>
+                    <h3 class="font-bold text-gray-800 text-[11px] md:text-xs leading-tight capitalize">${student.name.toLowerCase()}</h3>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Mengisi Pilihan Nama di Modal Login
         function isiDropdownLogin() {
             const select = document.getElementById('loginSelectName');
             sortedStudents.forEach(student => {
@@ -385,19 +396,20 @@
             });
         }
 
-        // ================= LOGIKA LOGIN =================
         function toggleLoginModal() {
             if (currentUser) {
-                // Proses Logout
                 currentUser = null;
                 localStorage.removeItem('iat04_logged_user');
                 updateUI();
                 return;
             }
-            // Buka Modal
             document.getElementById('loginModal').classList.remove('hidden');
             document.getElementById('loginAlert').classList.add('hidden');
             document.getElementById('loginPassword').value = '';
+            
+            // Tutup menu mobile jika sedang terbuka
+            document.getElementById('mobileMenu').classList.add('hidden');
+            document.getElementById('mobileMenuIcon').classList.replace('fa-xmark', 'fa-bars');
         }
 
         function prosesLogin() {
@@ -410,13 +422,9 @@
                 return;
             }
 
-            // SANDI RAHASIA KELAS: 856689
             if (sandi === '856689') {
-                // Sukses
-                tampilkanAlert(alertBox, 'Berhasil Login! Memuat...', 'success');
+                tampilkanAlert(alertBox, '<i class="fa-solid fa-check-circle mr-1"></i> Berhasil Login!', 'success');
                 currentUser = { name: nama };
-                
-                // Simpan ke memory browser
                 localStorage.setItem('iat04_logged_user', JSON.stringify(currentUser));
                 
                 setTimeout(() => {
@@ -424,38 +432,39 @@
                     updateUI();
                 }, 1000);
             } else {
-                // Gagal
-                tampilkanAlert(alertBox, 'Sandi kelas salah!', 'error');
+                tampilkanAlert(alertBox, '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Sandi kelas salah!', 'error');
             }
         }
 
         function tampilkanAlert(elemen, pesan, tipe) {
-            elemen.classList.remove('hidden', 'bg-red-100', 'text-red-600', 'bg-green-100', 'text-green-600');
+            elemen.classList.remove('hidden', 'bg-red-50', 'border-red-200', 'text-red-600', 'bg-green-50', 'border-green-200', 'text-green-600');
             if (tipe === 'error') {
-                elemen.classList.add('bg-red-100', 'text-red-600');
+                elemen.classList.add('bg-red-50', 'border-red-200', 'text-red-600', 'border');
             } else {
-                elemen.classList.add('bg-green-100', 'text-green-600');
+                elemen.classList.add('bg-green-50', 'border-green-200', 'text-green-600', 'border');
             }
             elemen.innerHTML = pesan;
         }
 
         function updateUI() {
             const btn = document.getElementById('authBtn');
+            const btnText = document.getElementById('authBtnText');
             const addBtn = document.getElementById('addPostBtn');
 
             if (currentUser) {
                 const namaPendek = currentUser.name.split(' ')[0];
-                btn.className = "bg-white border border-gray-200 text-red-500 hover:bg-red-50 px-5 py-2 rounded-full font-bold transition shadow-sm flex items-center gap-2";
-                btn.innerHTML = `<i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar (${namaPendek})`;
-                addBtn.classList.remove('hidden'); // Munculkan tombol upload
+                btn.className = "bg-white border border-gray-200 text-red-500 hover:bg-red-50 px-4 md:px-5 py-2 rounded-full text-sm md:text-base font-bold transition shadow-sm flex items-center gap-2";
+                btnText.innerHTML = `Keluar <span class="hidden sm:inline">(${namaPendek})</span>`;
+                btnText.classList.remove('hidden');
+                addBtn.classList.remove('hidden');
             } else {
-                btn.className = "bg-main-blue hover:bg-blue-600 text-white px-5 py-2 rounded-full font-medium transition shadow-sm flex items-center gap-2";
-                btn.innerHTML = `<i class="fa-solid fa-user"></i> Login Kelas`;
-                addBtn.classList.add('hidden'); // Sembunyikan tombol upload
+                btn.className = "bg-main-blue hover:bg-blue-600 text-white px-4 md:px-5 py-2 rounded-full text-sm md:text-base font-medium transition shadow-sm flex items-center gap-2";
+                btnText.innerHTML = `Login Kelas`;
+                btnText.classList.add('hidden', 'sm:inline'); // Sembunyikan tulisan di HP, tampilkan icon saja
+                addBtn.classList.add('hidden');
             }
         }
 
-        // ================= LOGIKA UPLOAD =================
         function openUploadModal() {
             document.getElementById('uploadModal').classList.remove('hidden');
             document.getElementById('uploadAlert').classList.add('hidden');
@@ -491,13 +500,9 @@
                 tugasData.push(dataBaru);
             }
 
-            // Simpan ke Browser
             simpanLocalData();
-            
-            // Render ulang layar
             renderData('referensi');
             renderData('tugas');
-            
             closeUploadModal();
         }
 
@@ -508,25 +513,24 @@
             container.innerHTML = '';
 
             if (dataArr.length === 0) {
-                container.innerHTML = `<div class="text-center p-4 text-gray-400 text-sm border border-dashed border-gray-200 rounded-xl">Belum ada file.</div>`;
+                container.innerHTML = `<div class="text-center p-4 text-gray-400 text-xs md:text-sm border border-dashed border-gray-200 rounded-xl">Belum ada file.</div>`;
                 return;
             }
 
-            // Reverse agar yang terbaru di atas
             [...dataArr].reverse().forEach(item => {
                 const el = document.createElement('a');
                 el.href = item.link;
                 el.target = "_blank";
-                el.className = "block bg-slate-50 hover:bg-white p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition shadow-sm group";
+                el.className = "block bg-slate-50 hover:bg-white p-3 md:p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition shadow-sm group";
                 el.innerHTML = `
                     <div class="flex items-start gap-3">
                         <div class="mt-1 ${tipe === 'referensi' ? 'text-main-blue' : 'text-main-green'}">
-                            <i class="fa-solid ${tipe === 'referensi' ? 'fa-link' : 'fa-file-lines'} text-lg"></i>
+                            <i class="fa-solid ${tipe === 'referensi' ? 'fa-link' : 'fa-file-lines'} text-base md:text-lg"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-gray-800 group-hover:text-main-blue transition line-clamp-2">${item.judul}</h4>
-                            <p class="text-xs text-gray-500 mt-1 font-medium">
-                                <i class="fa-solid fa-pencil text-[10px]"></i> ${item.author} &nbsp;•&nbsp; ${item.tanggal}
+                            <h4 class="font-bold text-gray-800 text-sm md:text-base group-hover:text-main-blue transition line-clamp-2">${item.judul}</h4>
+                            <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-medium">
+                                <i class="fa-solid fa-pencil"></i> ${item.author} &nbsp;•&nbsp; ${item.tanggal}
                             </p>
                         </div>
                     </div>
@@ -535,7 +539,6 @@
             });
         }
 
-        // ================= PENYIMPANAN LOCAL (AGAR PERMANEN DI BROWSER) =================
         function simpanLocalData() {
             localStorage.setItem('iat04_referensi', JSON.stringify(referensiData));
             localStorage.setItem('iat04_tugas', JSON.stringify(tugasData));
