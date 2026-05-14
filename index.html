@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas IAT 04 - UIN KHAS Jember</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#065f46', // Emerald 800 - Tema Islami/UIN
+                        secondary: '#10b981', // Emerald 500
+                        accent: '#f59e0b', // Amber 500
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        /* Hide scrollbar for clean horizontal scrolling if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased font-sans">
+
+    <nav class="fixed w-full z-50 glass-nav top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <!-- Logo Placeholder -->
+                    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold shadow-md">
+                        IAT
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-primary leading-tight">IAT 04 '24</h1>
+                        <p class="text-xs text-gray-500 hidden sm:block">UIN KHAS Jember</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#beranda" class="text-gray-600 hover:text-primary font-medium transition">Beranda</a>
+                    <a href="#jadwal" class="text-gray-600 hover:text-primary font-medium transition">Jadwal</a>
+                    <a href="#anggota" class="text-gray-600 hover:text-primary font-medium transition">Anggota Kelas</a>
+                    <a href="#akademik" class="text-gray-600 hover:text-primary font-medium transition">Akademik</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
+                <a href="#beranda" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-emerald-50">Beranda</a>
+                <a href="#jadwal" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-emerald-50">Jadwal</a>
+                <a href="#anggota" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-emerald-50">Anggota Kelas</a>
+                <a href="#akademik" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-emerald-50">Akademik</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="beranda" class="pt-16">
+        <div class="relative w-full h-[60vh] md:h-[70vh] bg-gray-900 flex items-center justify-center">
+            <!-- Background Image Placeholder (Foto Bersama) -->
+            <img src="https://placehold.co/1200x600/065f46/ffffff?text=Foto+Bersama+Kelas+IAT+04" alt="Foto Bersama IAT 04" class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay">
+            
+            <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                <span class="inline-block py-1 px-3 rounded-full bg-emerald-100 text-emerald-800 text-sm font-semibold mb-4 backdrop-blur-sm bg-opacity-80">
+                    Semester 4 • Angkatan 2024
+                </span>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                    Ilmu Al-Qur'an dan Tafsir 04
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 font-light drop-shadow-md">
+                    Fakultas Ushuluddin, Adab, dan Humaniora<br>Universitas Islam Negeri Kiai Haji Achmad Siddiq Jember
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="#jadwal" class="bg-primary hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg shadow-lg transition duration-300">
+                        <i class="far fa-calendar-alt mr-2"></i> Lihat Jadwal
+                    </a>
+                    <a href="#anggota" class="bg-white hover:bg-gray-100 text-primary font-medium py-3 px-6 rounded-lg shadow-lg transition duration-300">
+                        <i class="fas fa-users mr-2"></i> Anggota Kelas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="jadwal" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 inline-block relative">
+                    Jadwal Mata Kuliah
+                    <div class="absolute w-1/2 h-1 bg-accent bottom-0 left-1/4 mt-2 rounded-full"></div>
+                </h2>
+                <p class="text-gray-500 mt-4">Semester 04 - 10 Mata Kuliah</p>
+            </div>
+
+            <!-- Container for Jadwal generated by JS -->
+            <div id="jadwal-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Data akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="anggota" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 inline-block relative">
+                    Anggota Kelas
+                    <div class="absolute w-1/2 h-1 bg-primary bottom-0 left-1/4 mt-2 rounded-full"></div>
+                </h2>
+                <p class="text-gray-500 mt-4">Total: 26 Mahasiswa</p>
+            </div>
+
+            <!-- Container for Anggota generated by JS -->
+            <div id="anggota-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                <!-- Data akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="akademik" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 inline-block relative">
+                    Portal Akademik
+                    <div class="absolute w-1/2 h-1 bg-accent bottom-0 left-1/4 mt-2 rounded-full"></div>
+                </h2>
+                <p class="text-gray-500 mt-4">Referensi Materi dan Publikasi Tugas Mahasiswa</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Referensi Mata Kuliah -->
+                <div class="bg-emerald-50 rounded-2xl p-8 border border-emerald-100 card-hover">
+                    <div class="w-14 h-14 bg-primary text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Referensi Mata Kuliah</h3>
+                    <p class="text-gray-600 mb-6">Kumpulan silabus, RPS, kitab, jurnal, dan modul pembelajaran untuk semester 4.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center text-sm text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <i class="fas fa-file-pdf text-red-500 mr-3 text-lg"></i> Silabus Metodologi Penelitian.pdf
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <i class="fas fa-link text-blue-500 mr-3 text-lg"></i> Drive Kitab Tafsir Klasik
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <i class="fas fa-file-word text-blue-600 mr-3 text-lg"></i> Format Makalah FUAH 2024.docx
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-white border border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition">
+                        Akses Folder Referensi
+                    </button>
+                </div>
+
+                <!-- Publikasi Tugas -->
+                <div class="bg-amber-50 rounded-2xl p-8 border border-amber-100 card-hover">
+                    <div class="w-14 h-14 bg-accent text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Publikasi Tugas</h3>
+                    <p class="text-gray-600 mb-6">Portal pengumpulan tugas makalah, presentasi kelompok, dan project akhir mahasiswa.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center justify-between text-sm text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex items-center">
+                                <i class="fas fa-folder text-yellow-500 mr-3 text-lg"></i> Tugas Filsafat Islam
+                            </div>
+                            <span class="text-xs bg-green-100 text-green-700 py-1 px-2 rounded">Buka</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex items-center">
+                                <i class="fas fa-folder text-yellow-500 mr-3 text-lg"></i> Makalah Antropologi Agama
+                            </div>
+                            <span class="text-xs bg-green-100 text-green-700 py-1 px-2 rounded">Buka</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm text-gray-700 bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex items-center">
+                                <i class="fas fa-video text-purple-500 mr-3 text-lg"></i> Video Media Pembelajaran
+                            </div>
+                            <span class="text-xs bg-gray-100 text-gray-600 py-1 px-2 rounded">Tutup</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-white border border-accent text-accent font-medium rounded-lg hover:bg-accent hover:text-white transition">
+                        Lihat Semua Tugas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-10 border-t-4 border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-2">IAT 04 Angkatan 2024</h3>
+                    <p class="text-gray-400 text-sm">Fakultas Ushuluddin, Adab, dan Humaniora<br>UIN Kiai Haji Achmad Siddiq Jember</p>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Social placeholders -->
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Kelas Ilmu Al-Qur'an dan Tafsir 04 UIN KHAS Jember. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Mahasiswa
+        const students = [
+            { name: "Nurviela Afriani Sitorus", nim: "242104010033" },
+            { name: "Layyina Lisa Norrachmadi", nim: "242104010034" },
+            { name: "Muhammad Syamaydzar", nim: "242104010035" },
+            { name: "Karin Aura Husna", nim: "242104010036" },
+            { name: "Zahrotul Aini", nim: "242104010037" },
+            { name: "Adelia Mutiara Zamzam Ahmad", nim: "242104010038" },
+            { name: "Moh. Mirza Tsaqif Azmi", nim: "242104010039" },
+            { name: "Moch. Agus Rizal Fahmi", nim: "242104010040" },
+            { name: "Kamiluddin", nim: "242104010041" },
+            { name: "Siti Rahmatika", nim: "242104010042" },
+            { name: "Indra Nur Wahyudi", nim: "242104010044" },
+            { name: "Aufa Nabila", nim: "242104010045" },
+            { name: "Siti Alifia Nuraini", nim: "242104010046" },
+            { name: "Moh. Kayyis Salimi", nim: "242104010047" },
+            { name: "Fatur Rosia Rohman", nim: "242104010048" },
+            { name: "Vonny Nurlathifah", nim: "242104010049" },
+            { name: "Rizky Akbar Masyayikh", nim: "242104010050" },
+            { name: "Surotul Aini", nim: "243104010001" },
+            { name: "Muhammad Ilham Taufiqullah", nim: "242104010002" },
+            { name: "Tantriyatus Salami", nim: "243104010003" },
+            { name: "Zaini Ali", nim: "243104010004" },
+            { name: "Roro Hemas Mur Pratiwi", nim: "243104010005" },
+            { name: "Watsiqotul Kamila", nim: "243104010006" },
+            { name: "Ade Yahya Wiradinata", nim: "243104010007" },
+            { name: "Deyizna Unay Zahroya", nim: "245104010001" },
+            { name: "Ahmad Raffi Firmansyah", nim: "245104010002" }
+        ];
+
+        // Data Jadwal
+        const schedule = [
+            {
+                day: "Senin",
+                icon: "fa-calendar-day",
+                classes: [
+                    { time: "09.30 - 11.10", name: "Teori dan Pendekatan dalam Kajian Tafsir Lisan" },
+                    { time: "12.00 - 13.40", name: "Tafsir Ayat Ahkam Siyasah" },
+                    { time: "15.30 - 17.10", name: "Metodologi Penelitian" }
+                ]
+            },
+            {
+                day: "Selasa",
+                icon: "fa-calendar-week",
+                classes: [
+                    { time: "07.30 - 09.10", name: "Studi Tafsir Klasik - Pertengahan" },
+                    { time: "13.40 - 15.20", name: "Filsafat Islam" },
+                    { time: "15.30 - 17.10", name: "Antropologi Agama" }
+                ]
+            },
+            {
+                day: "Rabu",
+                icon: "fa-calendar",
+                classes: [
+                    { time: "12.00 - 13.40", name: "Tafsir Ayat Munakahat" },
+                    { time: "13.40 - 15.20", name: "Media Pembelajaran Al Qur'an dan Tafsir" }
+                ]
+            },
+            {
+                day: "Kamis",
+                icon: "fa-calendar-check",
+                classes: [
+                    { time: "07.30 - 09.10", name: "Strategi Pembelajaran Al Qur'an dan Tafsir" },
+                    { time: "13.40 - 15.20", name: "Terjemah Al Qur'an" }
+                ]
+            }
+        ];
+
+        // Fungsi Render Jadwal
+        function renderSchedule() {
+            const container = document.getElementById('jadwal-container');
+            schedule.forEach(day => {
+                let classesHTML = '';
+                day.classes.forEach(c => {
+                    classesHTML += `
+                        <div class="mb-4 last:mb-0 border-l-4 border-secondary pl-3 py-1 bg-gray-50 rounded-r shadow-sm">
+                            <span class="text-xs font-bold text-primary block mb-1"><i class="far fa-clock mr-1"></i> ${c.time}</span>
+                            <span class="text-sm font-medium text-gray-800 leading-tight block">${c.name}</span>
+                        </div>
+                    `;
+                });
+
+                const cardHTML = `
+                    <div class="bg-white rounded-xl shadow border border-gray-100 overflow-hidden card-hover">
+                        <div class="bg-primary text-white py-3 px-4 flex items-center gap-3">
+                            <i class="fas ${day.icon} text-lg"></i>
+                            <h3 class="font-bold text-lg">${day.day}</h3>
+                        </div>
+                        <div class="p-4">
+                            ${classesHTML}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Fungsi Render Anggota
+        function renderStudents() {
+            const container = document.getElementById('anggota-container');
+            students.forEach((student, index) => {
+                // Menghasilkan warna background secara acak (opsional, tapi di sini kita pakai konsisten untuk estetik)
+                // Kita akan gunakan initial untuk avatar placeholder jika belum ada foto
+                const initial = student.name.charAt(0).toUpperCase();
+                
+                const cardHTML = `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center card-hover flex flex-col items-center">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 mb-3 rounded-full bg-emerald-100 flex items-center justify-center border-4 border-white shadow-md relative overflow-hidden group">
+                            <!-- Placeholder Image (bisa diganti URL foto asli) -->
+                            <img src="https://placehold.co/150x150/065f46/ffffff?text=${initial}" alt="${student.name}" class="w-full h-full object-cover">
+                            <!-- Overlay edit (hanya visual) -->
+                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                <i class="fas fa-camera text-white"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow flex flex-col justify-center">
+                            <h4 class="font-semibold text-gray-900 text-sm sm:text-base leading-tight mb-1">${student.name}</h4>
+                            <p class="text-xs text-primary font-mono bg-emerald-50 py-1 px-2 rounded-md inline-block mx-auto mt-auto">${student.nim}</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Event Listener untuk Mobile Menu
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Inisialisasi Data setelah DOM terload
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSchedule();
+            renderStudents();
+        });
+    </script>
+</body>
+</html>
