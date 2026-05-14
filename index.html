@@ -29,6 +29,12 @@
         .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Custom scrollbar untuk list tugas */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="text-gray-700 antialiased">
@@ -303,34 +309,34 @@
     </div>
 
     <script>
-        // Data Mahasiswa dengan deteksi Gender otomatis
+        // Data Mahasiswa (Tanpa penanda gender, diseragamkan)
         const students = [
-            { name: "Nurviela Afriani Sitorus", gender: "girl" },
-            { name: "Layyina Lisa Norrachmadi", gender: "girl" },
-            { name: "Muhammad Syamaydzar", gender: "boy" },
-            { name: "Karin Aura Husna", gender: "girl" },
-            { name: "Zahrotul Aini", gender: "girl" },
-            { name: "Adelia Mutiara Zamzam Ahmad", gender: "girl" },
-            { name: "Moh. Mirza Tsaqif Azmi", gender: "boy" },
-            { name: "Moch. Agus Rizal Fahmi", gender: "boy" },
-            { name: "Kamiluddin", gender: "boy" },
-            { name: "Siti Rahmatika", gender: "girl" },
-            { name: "Indra Nur Wahyudi", gender: "boy" },
-            { name: "Aufa Nabila", gender: "girl" },
-            { name: "Siti Alifia Nuraini", gender: "girl" },
-            { name: "Moh. Kayyis Salimi", gender: "boy" },
-            { name: "Fatur Rosia Rohman", gender: "boy" },
-            { name: "Vonny Nurlathifah", gender: "girl" },
-            { name: "Rizky Akbar Masyayikh", gender: "boy" },
-            { name: "Surotul Aini", gender: "girl" },
-            { name: "Muhammad Ilham Taufiqullah", gender: "boy" },
-            { name: "Tantriyatus Salami", gender: "girl" },
-            { name: "Zaini Ali", gender: "boy" },
-            { name: "Roro Hemas Mur Pratiwi", gender: "girl" },
-            { name: "Watsiqotul Kamila", gender: "girl" },
-            { name: "Ade Yahya Wiradinata", gender: "boy" },
-            { name: "Deyizna Unay Zahroya", gender: "girl" },
-            { name: "Ahmad Raffi Firmansyah", gender: "boy" }
+            { name: "Nurviela Afriani Sitorus" },
+            { name: "Layyina Lisa Norrachmadi" },
+            { name: "Muhammad Syamaydzar" },
+            { name: "Karin Aura Husna" },
+            { name: "Zahrotul Aini" },
+            { name: "Adelia Mutiara Zamzam Ahmad" },
+            { name: "Moh. Mirza Tsaqif Azmi" },
+            { name: "Moch. Agus Rizal Fahmi" },
+            { name: "Kamiluddin" },
+            { name: "Siti Rahmatika" },
+            { name: "Indra Nur Wahyudi" },
+            { name: "Aufa Nabila" },
+            { name: "Siti Alifia Nuraini" },
+            { name: "Moh. Kayyis Salimi" },
+            { name: "Fatur Rosia Rohman" },
+            { name: "Vonny Nurlathifah" },
+            { name: "Rizky Akbar Masyayikh" },
+            { name: "Surotul Aini" },
+            { name: "Muhammad Ilham Taufiqullah" },
+            { name: "Tantriyatus Salami" },
+            { name: "Zaini Ali" },
+            { name: "Roro Hemas Mur Pratiwi" },
+            { name: "Watsiqotul Kamila" },
+            { name: "Ade Yahya Wiradinata" },
+            { name: "Deyizna Unay Zahroya" },
+            { name: "Ahmad Raffi Firmansyah" }
         ];
 
         // Urutkan nama sesuai abjad agar mudah dicari di dropdown
@@ -348,22 +354,19 @@
             loadLocalData();
         };
 
-        // Render Kartu Mahasiswa (Dengan Avatar DiceBear)
+        // Render Kartu Mahasiswa dengan Siluet Default (mirip WA)
         function renderStudents() {
             const grid = document.getElementById('studentGrid');
             grid.innerHTML = '';
             
             students.forEach(student => {
-                // Konfigurasi Avatar menggunakan DiceBear API (Sangat Stabil)
-                // lorelei style menghasilkan wajah manusia yang rapi
-                const avatarUrl = `https://api.dicebear.com/8.x/lorelei/svg?seed=${student.name}&backgroundColor=${student.gender === 'boy' ? 'E0F2FE' : 'D1FAE5'}`;
-                
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition hover:-translate-y-1";
                 
+                // Avatar default gaya siluet, persis WA tapi biru muda
                 card.innerHTML = `
-                    <div class="w-16 h-16 mx-auto rounded-full mb-3 overflow-hidden border-2 ${student.gender === 'boy' ? 'border-light-blue' : 'border-light-green'}">
-                        <img src="${avatarUrl}" alt="Avatar ${student.name}" class="w-full h-full object-cover">
+                    <div class="w-16 h-16 mx-auto rounded-full mb-3 bg-light-blue text-main-blue flex items-end justify-center overflow-hidden border border-blue-100">
+                        <i class="fa-solid fa-user text-[45px] translate-y-2"></i>
                     </div>
                     <h3 class="font-bold text-gray-800 text-xs leading-tight capitalize">${student.name.toLowerCase()}</h3>
                 `;
@@ -438,7 +441,6 @@
 
         function updateUI() {
             const btn = document.getElementById('authBtn');
-            const btnText = document.getElementById('authBtnText');
             const addBtn = document.getElementById('addPostBtn');
 
             if (currentUser) {
