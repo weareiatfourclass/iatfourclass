@@ -444,7 +444,7 @@
                 authBtn.classList.replace('hover:bg-emerald-700', 'hover:bg-red-600');
                 authBtn.innerHTML = `<i class="fa-solid fa-arrow-right-from-bracket"></i> <span id="authBtnText">Keluar (${currentUser.name.split(' ')[0]})</span>`;
                 addPostBtn.classList.remove('hidden');
-            } else {
+            firebaseConfig
                 authBtn.classList.replace('bg-red-500', 'bg-emerald-600');
                 authBtn.classList.replace('hover:bg-red-600', 'hover:bg-emerald-700');
                 authBtn.innerHTML = `<i class="fa-solid fa-user"></i> <span id="authBtnText">Login Mahasiswa</span>`;
